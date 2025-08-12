@@ -54,16 +54,12 @@
   <div id="events">Loading events...</div>
 
   <script>
-    const API_KEY = 'AIzaSyAlJNi586IEGgy5pzHmvjZXcbrSp511Yns';
-    const CALENDAR_ID = 'mrnbe9jnghmu2qt09tcktqrsg4i35h53@import.calendar.google.com';
+    const WORKER_PROXY_URL = 'https://13-cal-worker.sasquatch-hockey.com';
     const KEYWORD = '2013 Novi FireCats';
 
     async function fetchEvents() {
-      const now = new Date().toISOString();
-      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime&maxResults=50`;
-
       try {
-        const res = await fetch(url);
+        const res = await fetch(WORKER_PROXY_URL);
         const data = await res.json();
         const events = (data.items || []).filter(e => e.summary && e.summary.includes(KEYWORD));
         renderEvents(events);
