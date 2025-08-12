@@ -55,13 +55,12 @@
 
   <script>
     const WORKER_PROXY_URL = 'https://13-cal-worker.sasquatch-hockey.com';
-    const KEYWORD = '2013 FireCats';
 
     async function fetchEvents() {
       try {
         const res = await fetch(WORKER_PROXY_URL);
         const data = await res.json();
-        const events = (data.items || []).filter(e => e.summary && e.summary.includes(KEYWORD));
+        const events = data.items || []; // No filtering here, show all events
         renderEvents(events);
       } catch (err) {
         document.getElementById('events').innerHTML = 'Failed to load events.';
